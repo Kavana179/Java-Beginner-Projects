@@ -3,10 +3,10 @@ name: SonarCloud
 on:
   push:
     branches:
-      - main  # Replace with your target branch
+      - main
   pull_request:
     branches:
-      - main  # Replace with your target branch
+      - main
 
 jobs:
   sonarcloud:
@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK 17 (or any Java version you are using)
+      - name: Set up JDK 17
         uses: actions/setup-java@v2
         with:
           java-version: '17'
@@ -29,9 +29,8 @@ jobs:
       - name: Run SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Token from GitHub Secrets
-          SONAR_ORG: "kavana179"  # Your SonarCloud organization key
         run: mvn clean verify sonar:sonar \
           -Dsonar.projectKey=Kavana179_Java-Beginner-Projects \
-          -Dsonar.organization=${{ secrets.SONAR_ORG }} \
+          -Dsonar.organization=kavana179 \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
