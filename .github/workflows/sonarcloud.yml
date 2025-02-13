@@ -32,5 +32,5 @@ jobs:
         run: mvn clean verify sonar:sonar \
           -Dsonar.projectKey=Kavana179_Java-Beginner-Projects \
           -Dsonar.organization=kavana179 \
-          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.host.url=https://sonarcloud.io/project/overview?id=Kavana179_Java-Beginner-Projects \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
