@@ -3,10 +3,10 @@ name: SonarCloud
 on:
   push:
     branches:
-      - main  # Replace with the branch you're working with (e.g., 'main')
+      - main  # Replace with your target branch
   pull_request:
     branches:
-      - main  # Replace with the branch you're working with (e.g., 'main')
+      - main  # Replace with your target branch
 
 jobs:
   sonarcloud:
@@ -14,27 +14,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout the code
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Set up JDK 17 (or any Java version you prefer)
-      - name: Set up JDK 17
+      - name: Set up JDK 17 (or any version of Java you are using)
         uses: actions/setup-java@v2
         with:
-          java-version: '17'  # Adjust based on your Java version
-          distribution: 'temurin'  # Use a valid JDK distribution (temurin is a common choice)
+          java-version: '17'
+          distribution: 'temurin'  # Use a valid JDK distribution (temurin is a popular choice)
 
-      # Install dependencies (adjust if you use Gradle instead of Maven)
       - name: Install dependencies
         run: mvn install -DskipTests=true
 
-      # Run SonarCloud analysis
       - name: Run SonarCloud analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Token from GitHub Secrets
           SONAR_ORG: "kavana179"  # Your SonarCloud organization key
-        run: mvn sonar:sonar \
+        run: mvn clean verify sonar:sonar \
           -Dsonar.projectKey=Kavana179_Java-Beginner-Projects \
+          -Dsonar.organization=${{ secrets.SONAR_ORG }} \
           -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.organization=${{ secrets.SONAR_ORG }}  # This ensures the 'organization' parameter is set
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
