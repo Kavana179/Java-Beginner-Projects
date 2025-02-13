@@ -3,10 +3,10 @@ name: SonarCloud
 on:
   push:
     branches:
-      - main  # Replace with your target branch
+      - main  # Replace with your target branch, e.g., 'main'
   pull_request:
     branches:
-      - main  # Replace with your target branch
+      - main  # Replace with your target branch, e.g., 'main'
 
 jobs:
   sonarcloud:
@@ -17,11 +17,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up JDK 17 (or any version of Java you are using)
+      - name: Set up JDK 17 (or any Java version you are using)
         uses: actions/setup-java@v2
         with:
           java-version: '17'
-          distribution: 'temurin'  # Use a valid JDK distribution (temurin is a popular choice)
+          distribution: 'temurin'  # Adjust the distribution if needed
 
       - name: Install dependencies
         run: mvn install -DskipTests=true
